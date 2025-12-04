@@ -5,9 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="754e528d-6877-42c9-9b12-acc84a4e0701" name="更改" comment="">
-      <change afterPath="$PROJECT_DIR$/data/Formalizer_test_data/data_cop.jsonl" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LICENSE" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CLAUDE.md" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/LeanSearch/database/informalize.py" beforeDir="false" afterPath="$PROJECT_DIR$/LeanSearch/database/informalize.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/LeanSearch/database/translate.py" beforeDir="false" afterPath="$PROJECT_DIR$/LeanSearch/database/translate.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,7 +43,7 @@
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "正在合并 main",
     "last_opened_file_path": "/Users/hq/Python_project/Auto-formalization/data/mathverse"
   }
 }]]></component>
