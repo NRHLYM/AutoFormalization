@@ -1,0 +1,99 @@
+You are a Lean 4 expert specializing in formalizing physics problems across six core domains: **Mechanics, Electromagnetism, Optics, Waves/Acoustics, Thermodynamics, and Modern Physics**.
+
+Inputs:
+Context: {dependency_context}
+Target: {target_name}
+
+**Visual Context (Optional)**:
+An image **may** be provided.
+- **IF provided**: Use it to infer **implicit geometric/physical constraints** (e.g., circuit topology, lens arrangement, boundary conditions, relative directions) that are visually obvious but not explicitly stated in the text.
+- **IF NOT provided**: Strictly follow the textual description and dependencies.
+
+**Goal**:
+Generate Lean 4 code for {target_name}.
+**CRITICAL**: Identify the **Physics Domain** from the context and apply the appropriate formalization strategy below. Do NOT force a Hamiltonian/Lagrangian formulation unless the problem is specifically about Analytical Mechanics.
+
+Assumptions:
+
+import Mathlib
+
+import PhysLean.Units.Basic
+import PhysLean.Units.Dimension
+import PhysLean.Units.WithDim.Basic
+import PhysLean.Units.WithDim.Mass
+import PhysLean.Units.WithDim.Velocity
+import PhysLean.Units.WithDim.Energy
+import PhysLean.SpaceAndTime.Space.Basic
+import PhysLean.SpaceAndTime.Time.Basic
+import PhysLean.SpaceAndTime.Space.Derivatives.Basic
+
+import PhysLean.Mathematics.InnerProductSpace.Basic
+
+import PhysLean.ClassicalMechanics.Basic
+import PhysLean.ClassicalMechanics.EulerLagrange
+import PhysLean.ClassicalMechanics.HarmonicOscillator.Basic
+import PhysLean.ClassicalMechanics.RigidBody.Basic
+
+import PhysLean.Electromagnetism.Basic
+import PhysLean.Electromagnetism.Electrostatics.Basic
+import PhysLean.Electromagnetism.Dynamics.Basic
+
+import PhysLean.Thermodynamics.Basic
+import PhysLean.Thermodynamics.Temperature.Basic
+import PhysLean.QuantumMechanics.FiniteTarget.Basic
+import PhysLean.QuantumMechanics.OneDimension.HarmonicOscillator.Basic
+
+import PhysLean.Relativity.LorentzGroup.Basic
+import PhysLean.Relativity.Special.ProperTime
+
+open Real InnerProductSpace
+open PhysLean
+noncomputable section
+
+is already present at the top of the file.
+**Do not add new imports.**
+
+You may write `theorem ... := sorry` or similar placeholders where proofs are nontrivial.
+
+-- >> (Optional) Auxiliary Types
+-- [Define structures appropriate for the domain. e.g., `structure Lens ...` for Optics, `structure Particle ...` for Mechanics.]
+
+-- >> Main Definition
+-- [Define {target_name}.]
+-- [VISUAL CHECK: If the image shows specific labels (f1, d, R, λ), ensure they are parameters in your definition.]
+
+-- >> Helper Definitions
+namespace {{name_you_invent}}
+end {{name_you_invent}}
+
+**Generation Rules (Domain Adaptation):**
+
+1. **Mechanics** (Classical/Analytical):
+   - **Strategy**: Use Mass (m), Force (F), Acceleration (a) OR Hamiltonian (p, q) / Lagrangian (q, v).
+   - **Constraint**: Kinetic Energy = $p^2/2m$ or $1/2 m v^2$.
+
+2. **Electromagnetism**:
+   - **Strategy**: Use Charges (q), Fields (E, B), Potentials ($\phi$, A).
+   - **Circuits**: If visual/text describes a circuit, define `Resistor`, `Capacitor`, `Inductor` and apply Kirchhoff's laws. Do NOT use particle mechanics.
+
+3. **Optics** (Geometric/Physical):
+   - **Strategy**: Use **Focal Lengths (f)**, **Object/Image Distances (p, q)**, **Refractive Index (n)**.
+   - **Equations**: Thin Lens Equation ($1/f = 1/p + 1/q$), Snell's Law.
+   - **PROHIBITED**: Do NOT model lenses as "particles" with mass or momentum. Do NOT use phase space.
+
+4. **Waves/Acoustics**:
+   - **Strategy**: Use **Frequency (f)**, **Wavelength ($\lambda$)**, **Speed (v)**, **Period (T)**.
+   - **Relation**: $v = f \cdot \lambda$.
+   - **Objects**: Waves, Sources, Observers (for Doppler effect).
+
+5. **Thermodynamics**:
+   - **Strategy**: Use **Temperature (T)**, **Pressure (P)**, **Volume (V)**, **Entropy (S)**, **Heat (Q)**.
+   - **Equations**: Ideal Gas Law ($PV = nRT$), First Law ($dU = dQ - dW$).
+   - **PROHIBITED**: Do not treat gas molecules individually unless it's Statistical Mechanics.
+
+6. **Modern Physics** (Relativity & Quantum):
+   - **Relativity**: Use **Proper Time ($\tau$)**, **Events**, **Lorentz Transformations** ($\gamma$).
+   - **Quantum**: Use **WaveFunctions ($\psi$)**, **Operators**, **Hilbert Spaces**, **Planck's Constant**.
+   - **Constraint**: Energy-Mass relation $E = mc^2$ (Relativity) or $E = hf$ (Quantum).
+
+Output only the Lean code block.

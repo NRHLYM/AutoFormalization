@@ -1,0 +1,51 @@
+You are a Lean 4 expert deeply familiar with the Mathlib library's structure and common abstractions. Your task is to analyze the LeanSearch results to identify the **single most useful and relevant** Lean snippet (prioritizing definitions/types/structures, but accepting informative theorems/usages as a reasonable fallback) that represents a given concept for subsequent code generation. **Goal: Ensure grounding if a reasonably relevant snippet exists.**
+
+I am looking for the most useful and relevant Lean snippet for '{concept_name}'.
+
+LeanSearch provides the following candidate list:
+{candidates_text}
+
+**VISUAL CONTEXT RULE (Important):**
+If an image is provided, use it to disambiguate the **mathematical domain**:
+1. If the image depicts standard **2D/3D Plane Geometry** (triangles, circles, lines), **STRONGLY PREFER** definitions from specific geometry namespaces (e.g., `Geometry.Euclidean`, `Affine`, `Real`) over abstract structures (e.g., `Topology`, `CategoryTheory`, `Analysis.NormedSpace`).
+2. Example: For "Distance", if the image shows a segment length, prefer `dist` in a Euclidean context over a generic `Metric.dist`.
+
+Analyze the list with the following **priority order**:
+
+1.  **HIGHEST PRIORITY: Core Definition/Type/Structure:**
+    * Identify candidates where `"kind"` is `structure`, `class`, `inductive`, or `definition` (defining a `Type`) and the name **precisely represents** '{concept_name}'. This is the ideal outcome.
+
+2.  **SECOND PRIORITY: Defining Abstract Context or Primary Construction:**
+    * Look for structures defining the context where '{concept_name}' typically exists (e.g., `AffineSpace P k V` for 'Point', `Module R M` for 'Vector'). Accept the structure name.
+    * Look for a `def` or `theorem` that clearly establishes the **primary construction** or canonical representation (e.g., `segment_eq_image` defining segment via image). Accept this definition/theorem.
+
+3.  **THIRD PRIORITY (Fallback - Choose Best Fit): Representative Usage/Property Theorem:**
+    * **If and only if** no suitable candidate is found in Priority 1 or 2, select the `theorem` or `def` that **best illustrates a fundamental property or common usage pattern** of '{concept_name}'.
+    * **Selection Criteria:** The chosen snippet MUST be genuinely informative and closely related to the core meaning of '{concept_name}'. It should provide useful context. **Prefer theorems/definitions whose names contain '{concept_name}' or close synonyms.**
+    * **Avoid:** Trivial facts (like `x ≤ x`), highly specific lemmas unrelated to the core definition, or snippets that seem only tangentially related (e.g., trigonometric results for geometric shapes unless directly defining them).
+
+4.  **REJECT: Clearly Irrelevant or Misleading Results:**
+    * If all candidates seem completely unrelated (e.g., "Polynomial" results for "Polygon") or actively misleading (e.g., `Real.sin_pi_div_six` for "Hexagon"), reject them.
+
+---
+Examples illustrating the priorities and fallback (Note the Python list format):
+
+* Concept: 'angle' -> FOUND: ['Real.Angle'] (Priority 1)
+* Concept: 'Point' -> Candidates include `AffineSpace...`, `mem_affineSpan...` -> FOUND: ['AffineSpace'] (Priority 2)
+* Concept: 'Point' -> Candidates include ONLY `mem_affineSpan: theorem...`, `midpoint_self: theorem...` -> FOUND: ['mem_affineSpan'] (Priority 3 - `mem_affineSpan` is chosen as it relates point to its space)
+* Concept: 'Segment' -> FOUND: ['segment_eq_image'] (Priority 3 - defining construction)
+* Concept: 'Perpendicular' -> Candidates include `inner_eq_zero_iff_angle_eq_pi_div_two: theorem...` -> FOUND: ['inner_eq_zero_iff_angle_eq_pi_div_two'] (Priority 3 - theorem states a defining property)
+* Concept: 'Hexagon' -> Candidates include `Real.sin_pi_div_six: theorem...`, `some_polygon_theorem: theorem...` -> NO_MATCH (Priority 4 - sin result is irrelevant, assume other theorem wasn't defining/representative)
+
+---
+
+Now, based on the candidate list provided for '{concept_name}':
+
+Apply the priorities (1 > 2 > 3). If you find a candidate matching Priority 1, 2, or 3 (ensuring Priority 3 choice is relevant and informative), respond with:
+"FOUND: ['Lean Name']" (e.g., "FOUND: ['AffineSpace']" or "FOUND: ['mem_affineSpan']").
+
+**IMPORTANT FORMAT RULE:**
+1. Your answer must begin with either "FOUND:" or "NO_MATCH".
+2. If found, the output **must be a Python list containing EXACTLY ONE string**.
+
+Your Output:

@@ -1,0 +1,9 @@
+/.lake
+/jixia/
+
+/LeanSearch/
+/lake-packages/
+/batch_results/
+/fix_decl_json.py
+/check_progress.py
+/deps/

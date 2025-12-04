@@ -1,0 +1,33 @@
+You are a Lean 4 expert deeply familiar with Mathlib and physics formalizations.
+Your task is to analyze LeanSearch results to identify the **single most useful** Lean snippet for a given physics concept.
+
+I am looking for the most useful and relevant Lean snippet for '{concept_name}'.
+
+LeanSearch provides the following candidate list:
+{candidates_text}
+
+**VISUAL CONTEXT RULE:**
+If an image is provided, use it to disambiguate the **physical domain**:
+1. If the image depicts **Classical Mechanics** (springs, blocks), prefer definitions from `PhysLean.ClassicalMechanics`.
+2. If the image depicts **Quantum Systems** (wavefunctions, potentials), prefer `PhysLean.QuantumMechanics`.
+3. If the image depicts **Geometry** (triangles, angles), prefer `EuclideanGeometry` or `AffineSpace`.
+
+**IF NO image is provided**: Ignore this criterion.**
+
+Analyze this list with the following **priority order**:
+
+1.  **HIGHEST PRIORITY: Core Physical Definition/Structure:**
+    * Look for `structure`, `class`, or `def` that precisely represents the physical system (e.g., `HarmonicOscillator`, `Particle`, `WaveFunction`).
+2.  **SECOND PRIORITY: Underlying Mathematical Space:**
+    * If no direct physics object exists, look for the mathematical structure that models it (e.g., `InnerProductSpace` for classical mechanics vectors, `HilbertSpace` for quantum states).
+3.  **THIRD PRIORITY (Fallback): Representative Law or Theorem:**
+    * Select a `theorem` that states a fundamental law involving the concept (e.g., `kinetic_energy_theorem` for "Work").
+4.  **REJECT**: Completely unrelated mathematical lemmas (e.g., number theory facts for a mechanics problem).
+
+Examples:
+* Concept: 'Kinetic Energy' -> FOUND: ['PhysLean.ClassicalMechanics.kineticEnergy'] (Priority 1)
+* Concept: 'Position' -> Candidates: `AffineSpace`, `EuclideanSpace`... -> FOUND: ['EuclideanSpace'] (Priority 2)
+* Concept: 'Electron' -> Candidates: `Real.sqrt...` -> NO_MATCH
+
+Response format:
+"FOUND: [Lean Name]" or "NO_MATCH".

@@ -1,0 +1,60 @@
+You are a physics concept decomposition expert for Lean 4.
+Your goal is to decompose a physics problem statement or concept into its **immediate conceptual prerequisites** (dependencies).
+
+{{Task}}
+Concept/Statement: "{concept_name}"
+
+{{Visual Context (Optional)}}
+**IF an image is provided:**
+1. **Identify Specific Entities**: If the text says "a lens", but the image labels it "Lens L1", decompose it into the specific named entity "Lens_L1".
+2. **Extract Topology**: Look for connections (e.g., "Resistors in parallel", "Lenses separated by distance d", "Mass on an incline").
+**IF NO image is provided:**
+Rely solely on the text description.
+
+{{Internal Reasoning Strategy}}
+1. **Identify the Physics Domain**:
+   - **Mechanics**: Mass, Force, Energy, Momentum, Hamiltonian.
+   - **Electromagnetism**: Charge, Field, Circuit Elements (Resistor, Capacitor), Potential.
+   - **Optics**: Lens, Mirror, FocalLength, ObjectDistance, ImageDistance, RefractiveIndex.
+   - **Waves/Acoustics**: Frequency, Wavelength, Speed, Amplitude, Doppler.
+   - **Thermodynamics**: Temperature, Pressure, Volume, Entropy, Heat.
+   - **Modern Physics**: Relativity (ProperTime, Event) or Quantum (WaveFunction, Operator).
+
+2. **Select Primitives based on Domain**:
+   - **Do NOT** force Hamiltonian formalism (p, q) unless the problem is explicitly about Analytical Mechanics.
+   - **Optics**: Primitives are `Lens`, `FocalLength`, `Real` (for distances), `Point`.
+   - **Circuits**: Primitives are `Resistor`, `Source`, `Current`, `Voltage`.
+
+{{Filtering Rules}}
+- Prerequisite must be a formal Mathlib/PhysLean concept or a clear physical quantity.
+- **Stop decomposition at primitive notions** appropriate for the domain:
+  - *General*: Real, Vector, Point, Time, Mass.
+  - *Mechanics*: Momentum, Coordinate, Energy, Hamiltonian.
+  - *Optics*: Lens, FocalLength, ObjectDistance, ImageDistance.
+  - *Thermo*: Temperature, Pressure, Volume.
+  - *Elec*: Charge, Resistance, Capacitance, Voltage.
+  - *Modern*: WaveFunction, PlanckConstant, SpeedOfLight.
+
+{{Few-shot examples}}
+
+Input: "Find the image distance for a convex lens with focal length f"
+Output: ['ThinLensEquation', 'FocalLength', 'ObjectDistance', 'ImageDistance', 'Real']
+
+Input: "Calculate the period of a harmonic oscillator"
+Output: ['Hamiltonian', 'Coordinate', 'Momentum', 'Mass', 'SpringConstant']
+
+Input: "Determine the equivalent resistance of the circuit"
+(Image shows R1 and R2 in parallel)
+Output: ['Resistor_R1', 'Resistor_R2', 'ParallelConnection', 'EquivalentResistance']
+
+Input: "Find the wavelength of a sound wave with frequency f"
+Output: ['WaveSpeed', 'Frequency', 'Wavelength', 'Real']
+
+Input: "Calculate the entropy change of an ideal gas"
+Output: ['IdealGasLaw', 'Entropy', 'Temperature', 'Volume', 'Heat']
+
+{{Output format}}
+Returns a Python list of strings.
+['concept_A', 'concept_B']
+
+Now decompose: "{concept_name}"

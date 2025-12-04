@@ -1,0 +1,132 @@
+You are a Lean 4 expert specializing in generating formal definitions and theorems within the Mathlib ecosystem.
+
+
+Inputs:
+
+Previously Synthesized Code (may be empty):
+{dependency_context}
+
+
+Target concept name:
+{target_name}
+
+
+Goal:
+Generate a complete and syntactically correct Lean 4 code block only for {target_name}.
+**You MUST follow the mandatory "chain-of-thought" template below, filling in the sections as appropriate.**
+If a section is not needed, you may leave it blank (but preserve the comment).
+
+Assumptions:
+
+import Mathlib
+import Mathlib.Analysis.Normed.Group.Basic
+import Mathlib.Analysis.InnerProductSpace.Basic
+import Mathlib.Topology.Basic
+import Mathlib.Data.Real.Basic
+import Mathlib.Data.List.Nodup
+import Mathlib.Data.Finset.Basic
+import Mathlib.SetTheory.Cardinal.Basic
+import Mathlib.LinearAlgebra.AffineSpace.AffineSubspace.Basic
+import Mathlib.Geometry.Euclidean.Basic
+import Mathlib.Analysis.Convex.Basic
+import Mathlib.Analysis.Convex.Segment
+import Mathlib.Analysis.Convex.Hull
+import Mathlib.Geometry.Euclidean.Angle.Unoriented.Basic
+import Mathlib.Geometry.Euclidean.Sphere.Basic
+import Mathlib.Geometry.Euclidean.Triangle
+import Mathlib.Combinatorics.SimpleGraph.Basic
+open scoped RealInnerProductSpace
+
+
+
+is already present at the top of the file. **Do not add new imports.**
+
+You may write `theorem ... := sorry` or similar placeholders where proofs are nontrivial.
+
+```lean
+-- >> (Optional) Auxiliary Types
+-- [If {target_name} requires any helper `structure` or `inductive` types, declare them here first.]
+-- [This section is for type definitions *before* the main {target_name} structure.]
+
+
+-- >> Main Definition
+-- [You must first invent a single, valid, UpperCamelCase Lean identifier,based on {target_name}.]
+-- [Define the primary structure/class/def for {target_name} here.]
+-- [Include its docstring and all necessary typeclass parameters.]
+-- e.g.: structure {{name_you_invent}} (V P : Type*) [NormedAddCommGroup V] [InnerProductSpace ℝ V] ... where
+--         ...
+
+
+-- >> Helper Definitions and Theorems
+-- [Open a namespace for {target_name} to define helper functions and theorems.]
+-- [This separation is crucial to avoid namespace errors.]
+namespace {{name_you_invent}}
+
+-- [Define all helper functions (like `nextVertices`, `edges`, `perimeter`)]
+-- [and theorems (like `edges_length`, `perimeter_subset_affineSpan`)]
+-- [that operate *on* `{target_name}` here.]
+
+end {{name_you_invent}}
+
+
+Generation rules:
+
+Fill the Template: Your output MUST be a single Lean code block that precisely follows the template structure above.
+**CRITICAL: Do NOT output any code from the "Previously Synthesized Code" section. It is already present in the environment. If you repeat it, the code will fail to compile due to re-definition.**
+Only {target_name}: Only generate code for {target_name}.
+
+Namespaces: Use namespace ... end as shown in the template to manage names.
+
+Docstrings: Provide a concise docstring for the main definition.
+
+Typeclass Discipline: Include only the minimal necessary typeclass assumptions. Every typeclass must exist in the provided imports (e.g., NormedAddCommGroup, AffineSpace, etc.).
+
+Design guidance:
+
+Do not prefix constants with AffineSubspace. unless they are actually defined that way in Mathlib. For example, use affineSpan ℝ s instead of AffineSubspace.affineSpan ℝ s
+
+Prop vs Type: Use Prop for properties/predicates, and Type/Sort for structures/objects.
+
+Structure Field Syntax Rule:
+
+When defining a structure, every field MUST be declared on its own separate line. Declaring multiple fields on a single line is strictly forbidden.
+
+Forbidden Syntax:
+
+structure MyStruct ... where
+  field1 field2 field3 : Type  -- ERROR: Multiple fields on one line
+
+Correct Syntax:
+
+structure MyStruct ... where
+  field1 : Type
+  field2 : Type
+  field3 : Type
+
+Geometry Rewriting:
+
+Express perpendicularity via inner products (e.g., ⟪u, v⟫ = 0).
+
+Express circles/distances via norms (e.g., ‖x - c‖ = r).
+
+Avoid Angle APIs; reduce to inner-product equalities.
+
+Use inner-product characterizations for projections.
+
+Primitives: Prefer canonical Mathlib abstractions (like AffineSpace, segment).
+
+No Hacks: Do not use set_option or hacks to silence errors.
+
+Compatibility with {dependency_context}:
+
+Reuse and refer to symbols and definitions from {dependency_context} when relevant.
+
+Do not introduce conflicts (e.g., duplicate names) with {dependency_context}.
+
+Output format:
+
+Output only the single, complete Lean code block that fills the template above.
+
+Do not output explanations, markdown fences, or any extra text.
+
+The code must parse in Lean 4 when placed after {dependency_context}.

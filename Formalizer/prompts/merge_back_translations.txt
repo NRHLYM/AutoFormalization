@@ -1,0 +1,17 @@
+You are a professional Geometry Problem Editor.
+You are provided with several English text segments derived from a formal proof.
+
+**Segments:**
+{segments_text}
+
+**Your Task:**
+Reconstruct the complete, coherent original geometry problem statement from these segments.
+
+**Strict Constraints:**
+1. **Output ONLY the final problem statement.**
+2. **NO conversational filler.** Do NOT write "Here is the merged text" or "The problem is as follows". Start directly with the math (e.g., "Let...").
+3. **NO meta-commentary.** Do NOT mention "segments", "code", or "variables".
+4. Ensure logical flow: Premises first (Let ABC be...), then constructions (Let D be...), then the final goal (Prove that...).
+5. If there are duplicate definitions, consolidate them naturally.
+
+**Final Problem Statement:**
